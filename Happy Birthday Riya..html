@@ -1,0 +1,124 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+.root{background:#0e0c0f;color:#f5f0ea;font-family:'Inter',sans-serif;min-height:100vh;position:relative;overflow:hidden;}
+.sparkle-container{position:absolute;inset:0;pointer-events:none;z-index:1;}
+.sparkle{position:absolute;width:2px;height:2px;background:#c4a96a;border-radius:50%;opacity:0;animation:sparklePop var(--d,3s) ease var(--delay,0s) infinite;}
+@keyframes sparklePop{0%,100%{opacity:0;transform:scale(0);}50%{opacity:0.7;transform:scale(1);}}
+.number-bg{font-family:'Cormorant Garamond',serif;font-size:clamp(140px,32vw,260px);font-weight:300;color:transparent;-webkit-text-stroke:0.5px rgba(196,169,106,0.15);line-height:1;position:absolute;top:30px;left:50%;transform:translateX(-50%);pointer-events:none;user-select:none;z-index:0;white-space:nowrap;}
+.main-page{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:60px 28px 16px;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:10px;border:0.5px solid rgba(196,169,106,0.35);border-radius:40px;padding:7px 20px;margin-bottom:40px;animation:fadeUp 1s ease both;}
+.badge span{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#c4a96a;}
+.badge .dot{width:3px;height:3px;border-radius:50%;background:#c4a96a;opacity:0.6;}
+.greeting{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;font-style:italic;color:rgba(245,240,234,0.4);letter-spacing:2px;margin-bottom:8px;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(70px,14vw,115px);font-weight:300;line-height:0.9;color:#f5f0ea;letter-spacing:-2px;animation:fadeUp 1.1s 0.1s ease both;}
+h1 em{font-style:italic;color:#c4a96a;}
+.divider{width:1px;height:52px;background:linear-gradient(to bottom,transparent,rgba(196,169,106,0.4),transparent);margin:32px auto;animation:fadeIn 1.5s 0.4s ease both;}
+.msg{max-width:440px;animation:fadeUp 1.2s 0.5s ease both;font-family:'Cormorant Garamond',serif;font-size:clamp(17px,3.2vw,21px);font-weight:300;line-height:1.75;color:rgba(245,240,234,0.6);font-style:italic;}
+.msg strong{font-style:normal;font-weight:600;color:#f5f0ea;}
+.cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;width:100%;max-width:560px;margin:40px auto 0;border:0.5px solid rgba(196,169,106,0.15);border-radius:12px;overflow:hidden;animation:fadeUp 1.4s 0.7s ease both;}
+.card-cell{background:#161318;padding:24px 16px;text-align:center;transition:background 0.3s;}
+.card-cell:hover{background:#1e1a20;}
+.card-label{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:rgba(196,169,106,0.55);margin-bottom:8px;}
+.card-value{font-family:'Cormorant Garamond',serif;font-size:15px;color:#f5f0ea;line-height:1.45;}
+.footer{padding:36px 28px 48px;display:flex;flex-direction:column;align-items:center;position:relative;z-index:2;animation:fadeUp 1.6s 0.9s ease both;}
+.star-row{display:flex;align-items:center;gap:12px;opacity:0.3;margin-bottom:26px;}
+.star-row hr{width:60px;border:none;border-top:0.5px solid #c4a96a;}
+.star-row span{font-size:9px;color:#c4a96a;}
+.toast-btn{display:inline-flex;align-items:center;gap:10px;background:transparent;border:0.5px solid rgba(196,169,106,0.45);border-radius:40px;padding:12px 30px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#c4a96a;cursor:pointer;transition:all 0.3s;margin-bottom:44px;}
+.toast-btn:hover{background:rgba(196,169,106,0.07);border-color:rgba(196,169,106,0.75);}
+.secret-btn{background:transparent;border:none;font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(245,240,234,0.18);cursor:pointer;letter-spacing:1px;padding:4px 0;transition:color 0.4s;position:relative;}
+.secret-btn::after{content:'';display:block;width:0;height:0.5px;background:rgba(196,169,106,0.45);margin:4px auto 0;transition:width 0.4s;}
+.secret-btn:hover{color:rgba(245,240,234,0.45);}
+.secret-btn:hover::after{width:100%;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.overlay{position:absolute;inset:0;z-index:50;background:#0e0c0f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;opacity:0;pointer-events:none;transition:opacity 0.6s ease;}
+.overlay.open{opacity:1;pointer-events:all;}
+.overlay-inner{max-width:420px;width:100%;text-align:center;transform:translateY(20px);transition:transform 0.6s ease;}
+.overlay.open .overlay-inner{transform:translateY(0);}
+.close-btn{position:absolute;top:22px;right:26px;background:transparent;border:none;color:rgba(245,240,234,0.25);font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:color 0.3s;display:flex;align-items:center;gap:6px;}
+.close-btn:hover{color:rgba(245,240,234,0.6);}
+.ov-from{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(196,169,106,0.45);margin-bottom:28px;}
+.ov-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,7vw,48px);font-weight:300;line-height:1.05;color:#f5f0ea;letter-spacing:-0.5px;margin-bottom:32px;}
+.ov-title em{font-style:italic;color:#c4a96a;}
+.letter{text-align:left;background:#161318;border:0.5px solid rgba(196,169,106,0.15);border-radius:14px;padding:28px 26px;margin-bottom:28px;}
+.letter p{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,3vw,19px);font-weight:300;line-height:1.85;color:rgba(245,240,234,0.72);font-style:italic;}
+.letter p strong{font-style:normal;font-weight:600;color:#f5f0ea;}
+.letter p .hindi{color:#c4a96a;font-style:normal;}
+.sig{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:rgba(245,240,234,0.3);margin-top:4px;text-align:right;padding-right:4px;}
+.toast-notification{position:absolute;top:20px;left:50%;transform:translateX(-50%) translateY(-70px);background:#1e1a20;border:0.5px solid rgba(196,169,106,0.4);border-radius:40px;padding:9px 22px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1.5px;color:#c4a96a;z-index:200;white-space:nowrap;transition:transform 0.4s cubic-bezier(.34,1.56,.64,1),opacity 0.4s;opacity:0;}
+.toast-notification.show{transform:translateX(-50%) translateY(0);opacity:1;}
+</style>
+
+<div class="root" id="root">
+  <div class="sparkle-container" id="sparkles"></div>
+  <div class="number-bg" aria-hidden="true">Riya</div>
+  <div class="toast-notification" id="toast">✦ Happy Birthday, Riya</div>
+
+  <div class="main-page">
+    <div class="badge"><div class="dot"></div><span>Happy Birthday</span><div class="dot"></div></div>
+    <p class="greeting">wishing you a beautiful day,</p>
+    <h1><em>Riya</em></h1>
+    <div class="divider"></div>
+    <p class="msg">May this year bring you everything you've been <strong>quietly dreaming of.</strong> You deserve every beautiful thing coming your way.</p>
+    <div class="cards-row">
+      <div class="card-cell"><div class="card-label">Wish for you</div><div class="card-value">Clarity &amp; courage in every step</div></div>
+      <div class="card-cell"><div class="card-label">This year</div><div class="card-value">Your era — own every moment</div></div>
+      <div class="card-cell"><div class="card-label">Always</div><div class="card-value">You are already enough</div></div>
+    </div>
+  </div>
+
+  <div class="footer" id="mainFooter">
+    <div class="star-row"><hr><span>✦</span><hr></div>
+    <button class="toast-btn" onclick="raiseToast()"><span>✦</span> Raise a toast</button>
+    <div class="secret-btn-wrap">
+      <button class="secret-btn" onclick="openSecret()"><b size="20">Sirf tere liye ↓</b></button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <button class="close-btn" onclick="closeSecret()">
+      <i class="ti ti-arrow-left" style="font-size:13px"></i> back
+    </button>
+    <div class="overlay-inner">
+      <div class="ov-from">a message from Abhinay ✦</div>
+      <div class="ov-title">Dear <em>Riya,</em></div>
+      
+      <div class="letter">
+        <p>
+          Yaad hai woh <strong>maths room?</strong><br>
+          Tu formulas likhti thi, <span class="hindi">aur main tujhe.</span>
+        </p>
+        <br>
+        <p>
+          Sabke wishes generic honge —<br>
+          <span class="hindi">mera wala nahi.</span><br><br>
+          Tu uss kamre ki <strong>sabse bright presence</strong> thi,<br>
+          aur aaj bhi hai.
+          <br>
+I remember that day very much
+        </p>
+        <br>
+        <p>
+          <span class="hindi">Happy birthday Riya.</span><br>
+          <strong>Tere jaisi koi nahi.</strong>
+        </p>
+        <div class="sig">— Abhinay</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+[[8,12],[15,35],[92,20],[85,55],[5,70],[95,75],[50,8],[20,88],[78,90],[40,50],[60,30],[30,65]].forEach(([x,y],i)=>{
+  const s=document.createElement('div');s.className='sparkle';
+  s.style.left=x+'%';s.style.top=y+'%';
+  s.style.setProperty('--d',(2.5+Math.random()*3)+'s');
+  s.style.setProperty('--delay',(i*0.35)+'s');
+  document.getElementById('sparkles').appendChild(s);
+});
+function raiseToast(){const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function openSecret(){document.getElementById('overlay').classList.add('open');}
+function closeSecret(){document.getElementById('overlay').classList.remove('open');}
+</script>
